@@ -1,0 +1,61 @@
+<svg width="600" height="600" version="1.1"
+	xmlns="http://www.w3.org/2000/svg">
+
+<rect id="R" x="100" y="100" width="50" height="50" fill="rgb(255,0,0)" visibility="visible" >
+
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="x" from="100" to="200" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="y" from="100" to="200" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="fill" from="rgb(255,0,0)" to="rgb(0,255,0)" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="x" from="200" to="300" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="y" from="200" to="300" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="fill" from="rgb(0,255,0)" to="rgb(0,0,255)" fill="freeze" />
+
+</rect>
+
+<rect id="E" x="200" y="200" width="80" height="80" fill="rgb(200,150,0)" visibility="visible" >
+
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="x" from="200" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="y" from="200" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="width" from="80" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="height" from="80" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="fill" from="rgb(200,150,0)" to="rgb(0,200,150)" fill="freeze" />
+	<animateTransform attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="transform" type="rotate" from="0 240 240" to="90 150 150" repeatCount="1" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="x" from="100" to="400" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="y" from="100" to="400" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="width" from="100" to="50" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="height" from="100" to="50" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="fill" from="rgb(0,200,150)" to="rgb(0,0,255)" fill="freeze" />
+	<animateTransform attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="transform" type="rotate" from="90 150 150" to="-90 425 425" repeatCount="1" />
+
+</rect>
+
+<rect id="G" x="100" y="400" width="40" height="80" fill="rgb(0,0,255)" visibility="visible" >
+
+	<animateTransform attributeType="xml" begin="0.0ms" dur="3000.0ms" attributeName="transform" type="rotate" from="0 120 440" to="85 120 440" repeatCount="1" />
+	<animateTransform attributeType="xml" begin="3000.0ms" dur="1000.0ms" attributeName="transform" type="rotate" from="85 120 440" to="-70 120 440" repeatCount="1" />
+
+</rect>
+
+<rect id="R2" x="400" y="400" width="80" height="80" fill="rgb(200,150,0)" visibility="visible" >
+
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="width" from="80" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="height" from="80" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="fill" from="rgb(200,150,0)" to="rgb(0,200,150)" fill="freeze" />
+	<animateTransform attributeType="xml" begin="0.0ms" dur="2000.0ms" attributeName="transform" type="rotate" from="90 440 440" to="0 450 450" repeatCount="1" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="x" from="400" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="y" from="400" to="100" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="width" from="100" to="50" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="height" from="100" to="50" fill="freeze" />
+	<animate attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="fill" from="rgb(0,200,150)" to="rgb(0,0,255)" fill="freeze" />
+	<animateTransform attributeType="xml" begin="2000.0ms" dur="2000.0ms" attributeName="transform" type="rotate" from="0 450 450" to="180 125 125" repeatCount="1" />
+
+</rect>
+
+<ellipse id="B" cx="250" cy="250" rx="25" ry="35" fill="rgb(255,0,0)" visibility="visible" >
+
+	<animate attributeType="xml" begin="0.0ms" dur="4000.0ms" attributeName="cy" from="250" to="200" fill="freeze" />
+	<animate attributeType="xml" begin="0.0ms" dur="4000.0ms" attributeName="fill" from="rgb(255,0,0)" to="rgb(255,0,255)" fill="freeze" />
+
+</ellipse>
+
+</svg>

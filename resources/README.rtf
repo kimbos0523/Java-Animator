@@ -1,0 +1,978 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;\f2\fnil\fcharset0 Menlo-Italic;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue109;\red109\green109\blue109;\red82\green0\blue103;
+\red252\green39\blue18;\red251\green2\blue7;\red0\green0\blue254;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c42745;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c32157\c0\c40392;
+\cssrgb\c100000\c25271\c7591;\cssrgb\c100000\c14913\c0;\csgenericrgb\c0\c0\c99608;}
+\margl1440\margr1440\vieww19240\viewh12500\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf0 README file:\
+\
+\ul Assignment 5:\ulnone \
+We have an interface called 
+\f1\b AnimationOperations
+\f0\b0  which includes the methods:\
+\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 addShape(AnimationShape newShape, String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+\
+	
+\f1\b \cf2 void
+\f0\b0  \cf0 removeShape(String name);\
+\
+	String getAnimation();\
+\
+	AnimationShape getShape(
+\f1\b \cf2 int
+\f0\b0 \cf0  time, String name);\
+\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 move(String name, 
+\f1\b \cf2 int
+\f0\b0  \cf0 startingTime, 
+\f1\b \cf2 int
+\f0\b0  \cf0 endingTime, 
+\f1\b \cf2 int
+\f0\b0  \cf0 newX, 	
+\f1\b \cf2 int
+\f0\b0  \cf0 newY);\
+\
+	
+\f1\b \cf2 void
+\f0\b0  \cf0 changeColor(String name, 
+\f1\b \cf2 int
+\f0\b0  \cf0 startingTime, ShapeColor color, 
+\f1\b \cf2 int 
+\f0\b0 	\cf0 endingTime);\
+\
+	
+\f1\b \cf2 void
+\f0\b0  \cf0 changeSize(String name, 
+\f1\b \cf2 int
+\f0\b0  \cf0 startingTime, 
+\f1\b \cf2 int
+\f0\b0  \cf0 height, 
+\f1\b \cf2 int
+\f0\b0  \cf0 width, 	
+\f1\b \cf2 int 
+\f0\b0 \cf0 endingTime);\
+\
+The class that implements the interface is called 
+\f1\b AnimationModel
+\f0\b0 , which has a private field: HashMap<String, TreeMap<Integer, AnimationShape>> timeline;\
+	The String represents the name of the Shape, the Integer represents the tick 	in the Animation, and the AnimationShape corresponds to the String name of the 	shape.\
+There are 2 constructors for AnimationModel, one that doesn\'92t take in anything, and one that takes in (HashMap<String, AnimationShape> shapes) which represent the shapes that the Animation has to begin with.\
+\
+\
+\
+We also have an interface for the shapes in the animation, called 
+\f1\b AnimationShape 
+\f0\b0 which include the methods:\
+	AnimationShape showShape(
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+	Posn2D getPosition();\
+	ShapeColor getColor();\
+	
+\f1\b \cf2 int 
+\f0\b0 \cf0 getHeight();\
+	
+\f1\b \cf2 int 
+\f0\b0 \cf0 getWidth();\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 setPosition(
+\f1\b \cf2 int 
+\f0\b0 \cf0 x, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 y);\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 setColor(
+\f1\b \cf2 int 
+\f0\b0 \cf0 r, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 g, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 b);\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 setSize(
+\f1\b \cf2 int 
+\f0\b0 \cf0 h, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 w);\
+	
+\f1\b \cf2 float 
+\f0\b0 \cf0 getDeltaX();\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li706\fi4\pardirnatural\partightenfactor0
+
+\f1\b \cf2 float 
+\f0\b0 \cf0 getDeltaY();\
+
+\f1\b \cf2 float 
+\f0\b0 \cf0 getDeltaR();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 float 
+\f0\b0 \cf0 getDeltaG();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 float 
+\f0\b0 \cf0 getDeltaB();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 float 
+\f0\b0 \cf0 getDeltaHeight();\
+
+\f1\b \cf2 float 
+\f0\b0 \cf0 getDeltaWidth();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 void 
+\f0\b0 \cf0 setDeltaPosition(
+\f1\b \cf2 float 
+\f0\b0 \cf0 deltaX, 
+\f1\b \cf2 float 
+\f0\b0 \cf0 deltaY);
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 void 
+\f0\b0 \cf0 setDeltaColor(
+\f1\b \cf2 float 
+\f0\b0 \cf0 deltaR, 
+\f1\b \cf2 float 
+\f0\b0 \cf0 deltaG, 
+\f1\b \cf2 float 
+\f0\b0 \cf0 deltaB);
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 void 
+\f0\b0 \cf0 setDeltaHeight(
+\f1\b \cf2 float 
+\f0\b0 \cf0 deltaHeight);
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 void 
+\f0\b0 \cf0 setDeltaWidth(
+\f1\b \cf2 float 
+\f0\b0 \cf0 deltaWidth);
+\f2\i \cf3 \
+
+\f0\i0 \cf0 String getType();\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 Then we have an abstract class 
+\f1\b AShape 
+\f0\b0 which implements the interface. It has the fields:\
+	
+\f1\b \cf2 protected 
+\f0\b0 \cf0 Posn2D 
+\f1\b \cf4 position
+\f0\b0 \cf0 ;\
+\pard\tx701\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li678\fi-3\pardirnatural\partightenfactor0
+
+\f1\b \cf2 protected 
+\f0\b0 \cf0 ShapeColor 
+\f1\b \cf4 color
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected int \cf4 height
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected int \cf4 width
+\f0\b0 \cf0 ;\
+\
+
+\f1\b \cf2 protected float \cf4 deltaX
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected float \cf4 deltaY
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected float \cf4 deltaR
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected float \cf4 deltaG
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected float \cf4 deltaB
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected float \cf4 deltaHeight
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 protected float \cf4 deltaWidth
+\f0\b0 \cf0 ;\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 We added the delta fields in order to keep track of the difference between fields in any transformation.\
+The classes 
+\f1\b RectangleShape
+\f0\b0  and 
+\f1\b OvalShape
+\f0\b0  then extends AShape. We did this so that when new shapes are being added, it will only need to extend AShape and not change anything we already have. We also have the class ShapeColor, which takes in r, g, b as fields, and Posn2D, which takes in x, y as fields. \
+\
+\
+\
+\
+\ul Assignment 6:\
+\ulnone For the AnimationOperations interface, we added and removed some methods accordingly, it now holds:\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 declareShape(String name, String type);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 addShape(AnimationShape newShape, String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 removeShape(String name);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 move(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 startingTime, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 endingTime, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 newX, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 newY);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 changeColor(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 startingTime, ShapeColor color, 
+\f1\b \cf2 int 	
+\f0\b0 \cf0 endingTime);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 changeSize(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 startingTime, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 height, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 width, 
+\f1\b \cf2 int 	
+\f0\b0 \cf0 endingTime);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 setBackground(
+\f1\b \cf2 int 
+\f0\b0 \cf0 x, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 y, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 width, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 height);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 setExistingShape(HashMap<String, String> shapes);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 setTimeline(HashMap<String, TreeMap<Integer, AnimationShape>> timeline);\
+\
+We also added 2 fields for the AnimationModel. On top of the original timeline, it now has a Hashmap<String, String>, which represents the existing shapes in the AnimationModel. The Key String represents the name of a AnimationShape, and the Value String represents the type of shape that the AnimationShape is. We also added a field AnimationBackground, which represents the canvas for the Animation. \
+\
+Time can now be 0 now, and the starting time for actions can be equal to the ending time, and the positions can now be negative(indicating that the shape is out of the window)\
+\
+We also added a 
+\f1\b Builder
+\f0\b0  class inside the AnimationModel, which implements AnimationBuilder<AnimationOperations>. It has a private field: 
+\f1\b \cf2 private 
+\f0\b0 \cf0 AnimationOperations 
+\f1\b \cf4 model 
+\f0\b0 \cf0 = 
+\f1\b \cf2 new 
+\f0\b0 \cf0 AnimationModel(); which is the model that the builder will build on.\
+\
+We changed the OvalShape class name to EllipseShape since that is more consistent with the assignment.\
+\
+We added a class called 
+\f1\b AnimationBackground
+\f0\b0 , which has the fields:\
+
+\f1\b \cf2 	private int \cf4 x
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private int \cf4 y
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 Dimension 
+\f1\b \cf4 dimension
+\f0\b0 \cf0 ;\
+\
+We added an interface called 
+\f1\b ReadOnlyAnimationModel
+\f0\b0 , which represents a read-only version of the Animation. It holds the methods:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 	String getAnimation();\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 	AnimationShape getShape(
+\f1\b \cf2 int 
+\f0\b0 \cf0 time, String name);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 	List<AnimationShape> getShape(
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 	AnimationBackground getBackground();\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 	HashMap<String, String> getExistingShape();\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf3 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\i0 \cf0 	HashMap<String, TreeMap<Integer, AnimationShape>> getTimeline();\
+\
+\
+For the view part of the Animation, we have an interface 
+\f1\b AnimationView, 
+\f0\b0 which has 3 methods:
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 makeVisible();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 refresh();\
+	Appendable render();\
+We made 3 implementations of this interface: 
+\f1\b AnimationSVGView, AnimationTextView, 
+\f0\b0 and 
+\f1\b AnimationSwingView
+\f0\b0 . \
+In the AnimationSVGView and AnimationTextView, we have separate render methods which gets the correct output for the views. \
+For the AnimationTextView, we used the getAnimation method that is in the AnimationOperations. For the SVG and Swing view, we created Visitors. \
+\
+For visitors, we made 2 interfaces: 
+\f1\b ISVGShapeVisitor 
+\f0\b0 and 
+\f1\b ISwingShapeVisitor. 
+\f0\b0 They each have a visitor method for RectangleShape and EllipseShape, as well as an apply method.\
+\
+Then we have the classes 
+\f1\b SVGShapeVisitor 
+\f0\b0 and 
+\f1\b SwingShapeVisitor, 
+\f0\b0 which implements the interfaces respectively, and have the correct view output for the shapes. \
+\
+Finally, we added 
+\f1\b Excellence
+\f0\b0  class, which has the 
+\f1\b \cf2 public static void 
+\f0\b0 \cf0 main(String[] args); \
+we have 4 separate methods which looks for the correct arguments; -in, -view, -out, and -speed.\
+Text-based views can take in an -out argument to be written into a file or just displayed in the console. \
+In the SVG, if the motion is just staying, the attribute name is the x-position and starting and ending values are the same \
+\
+\
+\
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs24 \cf0 \ul \ulc0 Assignment 7:
+\fs22 \
+\
+
+\f1\b\fs26 \cf5 \ulnone Changes:
+\f0\b0 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs22 \cf0 We added 4 more methods to the 
+\f1\b AnimationOperations 
+\f0\b0 interface, which are:\
+- AnimationOperations\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 addFrame(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 removeFrame(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+
+\f1\b \cf2 	void 
+\f0\b0 \cf0 modifyFrame(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time, AnimationShape newShape);\
+\
+In the 
+\f1\b AnimationModel 
+\f0\b0 class, which implements the AnimationOperations, we changed the field 
+\f1\b \cf2 private 
+\f0\b0 \cf0 HashMap<String, String> 
+\f1\b \cf4 existingShape
+\f0\b0 \cf0  from HashMap to LinkedHashMap, so that this way it is guaranteed that the shapes are ordered. This is because in our previous assignments, the buildings animation didn\'92t work correctly since our shape changes weren\'92t ordered. We can now also overlap shapes, which was another reason it wasn\'92t working previously.\
+\
+AnimationShape makeShape(String name, Posn2D pos, ShapeColor color, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 height, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 width);\
+These methods allow the edits of the users to be made to the model. \
+\
+In the 
+\f1\b AnimationPanel 
+\f0\b0 class, we added two methods which helps set the tick and the model for easier manipulation. \
+
+\f1\b \cf2 	public void 
+\f0\b0 \cf0 setTick(
+\f1\b \cf2 int 
+\f0\b0 \cf0 tick)\
+
+\f1\b \cf2 	public void 
+\f0\b0 \cf0 setModel(ReadOnlyAnimationModel model)\
+\
+In the 
+\f1\b AnimationSVGView 
+\f0\b0 class, in the previous implementation our SVG output didn\'92t handle the cases when the shape had no changes in an Animation, which is why they wouldn\'92t show up. Now, the view will handle this case.\
+\
+In the 
+\f1\b AnimationView 
+\f0\b0 interface, we added the following methods:
+\f2\i \cf3 \
+
+\f0\i0 \cf0 	Timer getTimer();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 setIsLoop(
+\f1\b \cf2 boolean 
+\f0\b0 \cf0 isLoop);
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 reset();
+\f2\i \cf3 \
+
+\f0\i0 \cf0 	ReadOnlyAnimationModel getModel();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 setModel(ReadOnlyAnimationModel model);
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 setTimer(Timer timer);
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 doAction(AnimationController controller);\
+These methods mostly have to do with the CompositeSwingView, and UnsupportedOperationExceptions are being thrown in the other 3 classes which implement this interface for these methods.\
+\
+In the 
+\f1\b Excellence
+\f0\b0  class, in the main method, we added an if body for if the instance of view is CompositeSwingView, which will then set the view to be visible, refreshes it, initializes a controller and calls the playAnimation() method of the controller. 
+\fs24 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs26 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b \cf6 Additions:
+\f0\b0 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs22 \cf0 We added a controller for the Animation, with the interface called 
+\f1\b AnimationController
+\f0\b0 . It interacts with the AnimationView, specifically the new CompositeSwingView (explained later), and it handles all the edits and changes made by users. It has the following methods:\
+	
+\f1\b \cf2 void 
+\f0\b0 \cf0 deleteShape(String name);\
+
+\f1\b \cf2 	void 
+\f0\b0 \cf0 deleteFrame(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+
+\f1\b \cf2 	void 
+\f0\b0 \cf0 addShape(String name, String type);\
+
+\f1\b \cf2 	void 
+\f0\b0 \cf0 addFrame(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time);\
+
+\f1\b \cf2 	void 
+\f0\b0 \cf0 modifyFrame(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 time, Posn2D pos, ShapeColor color, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 height, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 width);
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 faster();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 slower();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 restart();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 loop();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 pause();
+\f2\i \cf3 \
+
+\f1\i0\b \cf2 	void 
+\f0\b0 \cf0 resume();\
+
+\f1\b \cf2 	void 
+\f0\b0 \cf0 playAnimation(); - this method is what gives the controller access to the view, it holds 
+\f1\b \cf4 view
+\f0\b0 \cf0 .doAction(
+\f1\b \cf2 this
+\f0\b0 \cf0 ); and 						initializes the timer and sets the speed\
+The class that implements this interface is called 
+\f1\b AnimationControllerImpl
+\f0\b0 . It has four fields:\
+	
+\f1\b \cf2 private 
+\f0\b0 \cf0 CompositeSwingView 
+\f1\b \cf4 view
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 AnimationOperations 
+\f1\b \cf4 model
+\f0\b0 \cf0 ;	\
+
+\f1\b \cf2 	private int \cf4 speed
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private boolean \cf4 isLooped
+\f0\b0 \cf0 ;\
+The constructor of AnimationControllerImpl takes in a CompositeSwingView and a speed, and sets it fields to the view and speed given in the constructor. The view and speed are given to the controller in the excellence class, main method. Previously, the speed was calculated in the excellence class, but now it is directly calculated in the controller, so that it has access to manipulate it. The AnimationControllerImpl has a private method setModel(), which sets the model in the CompositeSwingView to the this model. isLooped starts off to be false. In the first 5 methods in the interface, the controller interacts with the model and performs the corresponding methods given what the user wants. For the next 6 methods in the interface, the controller manipulates the view\'92s timer and its speed in order to control the Animation.\
+\
+The new implementation of the AnimationView interface is called 
+\f1\b CompositeSwingView.
+\f0\b0  This is the view that the user is able to edit. It extends JFrame. It has the following fields:\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 AnimationPanel 
+\f1\b \cf4 animationPanel
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 ButtonPanel 
+\f1\b \cf4 buttonPanel
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 KeyFramePanel 
+\f1\b \cf4 keyFramePanel
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 SaveLoadPanel 
+\f1\b \cf4 saveLoadPanel
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 ReadOnlyAnimationModel 
+\f1\b \cf4 model
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private int \cf4 tick 
+\f0\b0 \cf0 = \cf7 0\cf0 ;\
+
+\f1\b \cf2 	private boolean \cf4 isLoop 
+\f0\b0 \cf0 = 
+\f1\b \cf2 false
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 Timer 
+\f1\b \cf4 timer
+\f0\b0 \cf0 ;\
+The constructor is very similar to the AnimationSwingView class, it has String windowTitle, ReadOnlyAnimationModel model, but not the speed, since the speed is now in the Controller. This is because the controller is better able to manipulate the speed from its own class. The CompositeSwingView has it\'92s own methods apart from the interface, which are: \
+
+\f1\b \cf2 	public void 
+\f0\b0 \cf0 doAction(AnimationController listener) \{\
+ 	 
+\f1\b \cf4 buttonPanel
+\f0\b0 \cf0 .addClickListener(listener);\
+ 	 
+\f1\b \cf4 keyFramePanel
+\f0\b0 \cf0 .addClickListener(listener);\
+
+\f1\b \cf4 	 saveLoadPanel
+\f0\b0 \cf0 .addClickListener(listener);\
+	\}\
+\
+
+\f1\b \cf2 	public void 
+\f0\b0 \cf0 setTimer(Timer timer) \{\
+	  
+\f1\b \cf2 this
+\f0\b0 \cf0 .
+\f1\b \cf4 timer 
+\f0\b0 \cf0 = timer;\
+	\}\
+\
+
+\f1\b \cf2 	public 
+\f0\b0 \cf0 Timer getTimer() \{\
+	  
+\f1\b \cf2 return this
+\f0\b0 \cf0 .
+\f1\b \cf4 timer
+\f0\b0 \cf0 ;\
+	\}\
+\
+
+\f1\b \cf2 	public void 
+\f0\b0 \cf0 reset() \{\
+	  
+\f1\b \cf2 this
+\f0\b0 \cf0 .
+\f1\b \cf4 tick 
+\f0\b0 \cf0 = \cf7 0\cf0 ;\
+	\}\
+\
+
+\f1\b \cf2 	public void 
+\f0\b0 \cf0 setIsLoop(
+\f1\b \cf2 boolean 
+\f0\b0 \cf0 isLoop) \{\
+	  
+\f1\b \cf2 this
+\f0\b0 \cf0 .
+\f1\b \cf4 isLoop 
+\f0\b0 \cf0 = isLoop;\
+	\}\
+\
+The doAction method is how to get the two panels and the controller to interface, through the view.\
+\
+In order for the user to be able to interact with the Animation, we added two more classes that extends JPanel: 
+\f1\b ButtonPanel 
+\f0\b0 and 
+\f1\b KeyFramePanel.\
+\
+
+\f0\b0 The 
+\f1\b ButtonPanel
+\f0\b0  class extends JPanel, and has the following fields:\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 start
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 pause
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 restart
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 speedUp
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 speedDown
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 loop
+\f0\b0 \cf0 ;\
+It has a public addClickListener(AnimationController listener) method which tells the controller which act to perform according to the button pressed by the user. \
+
+\f1\b \
+
+\f0\b0 The 
+\f1\b KeyFramePanel 
+\f0\b0 class also extends JPanel, and has the following fields:\
+	JButton 
+\f1\b \cf4 addShapeB
+\f0\b0 \cf0 ;\
+	JButton 
+\f1\b \cf4 deleteShapeB
+\f0\b0 \cf0 ;\
+	JButton 
+\f1\b \cf4 addKeyFrameB
+\f0\b0 \cf0 ;\
+	JButton 
+\f1\b \cf4 deleteKeyFrameB
+\f0\b0 \cf0 ;\
+	JButton 
+\f1\b \cf4 modifyKeyFrameB
+\f0\b0 \cf0 ;\
+\
+	JFrame 
+\f1\b \cf4 addShape
+\f0\b0 \cf0 ;\
+	JFrame 
+\f1\b \cf4 deleteShape
+\f0\b0 \cf0 ;\
+	JFrame 
+\f1\b \cf4 addKeyFrame
+\f0\b0 \cf0 ;\
+	JFrame 
+\f1\b \cf4 deleteKeyFrame
+\f0\b0 \cf0 ;\
+	JFrame 
+\f1\b \cf4 modifyKeyFrame
+\f0\b0 \cf0 ;\
+The buttons are the initial buttons that the user will see when the Animation is called, and the frames will appear when the user clicks on the corresponding buttons. It also has a public addClickListener(AnimationController listener) method, but it allocates the specific acts for each frame to private helper methods, which then takes in the user inputs and gives that to the controller. Addshape adds a shape into the Animation without any properties and it will not appear in the Animation until it has been modified. Deleteshape will delete the shape from the entire Animation, and will no longer exist. AddFrame allows the user to add a frame any time in the Animation for a shape that it doesn\'92t exist yet. While Modify frame allows the user to modify a frame of a shape at a time when it already exists in the Animation. Deleting keyframe allows the user to delete a keyframe that exists for a shape.\
+\
+Finally, the last addition to the project is a 
+\f1\b SaveLoadPanel
+\f0\b0 , which also extends JPanel, and has the following fields:\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JFrame 
+\f1\b \cf4 frame
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JLabel 
+\f1\b \cf4 fileName
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JTextField 
+\f1\b \cf4 fileNameText
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 save
+\f0\b0 \cf0 ;\
+
+\f1\b \cf2 	private 
+\f0\b0 \cf0 JButton 
+\f1\b \cf4 load
+\f0\b0 \cf0 ;\
+It has the options for the user to save their edited Animation or to upload their own. It also has an addClickListener(AnimationController listener) which tells the controller which action to perform. When the user is writing the file path, they must include the output type: either .txt or .svg.
+\f1\b \
+\
+\
+\
+\
+
+\f0\b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b\fs24 \cf0 \ul Assignment 8
+\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0\fs22 \cf0 \ulnone \
+For the model, we were able to adapt to their code. They kept their shapes and keyframes as ArrayLists, so we were able to convert our HashMaps and LinkedMaps into their structures. New classes that we implemented include:\
+	
+\f1\b AnimationShared 
+\f0\b0 (interface extends their interface)\
+	
+\f1\b AnimationType
+\f0\b0  (enum)
+\f1\b \
+	EasyAnimator 
+\f0\b0 (model class implements AnimationShared)
+\f1\b \
+	MoveAnimation 
+\f0\b0 (extends AAnimation)
+\f1\b \
+	SizeAnimation 
+\f0\b0 (extends AAnimation)
+\f1\b \
+	ColorAnimation 
+\f0\b0 (extends AAnimation)
+\f1\b \
+	Posn \
+	AbstractShape 
+\f0\b0 (extends our AShape, implements their Shape interface)
+\f1\b \
+	RectangleProvider 
+\f0\b0 (extends AbstractShape)
+\f1\b \
+	CircleProvider 
+\f0\b0 (extends AbstractShape)
+\f1\b \
+	ShapeType
+\f0\b0  (enum)\
+\
+For their view, we just requested for them to change a few things:\
+- their visible method\
+- their button methods \
+(explained in the critique file)\
+\
+We implemented a 
+\f1\b ProviderView
+\f0\b0  class which implements our view interface. It holds the provider view interface, an AnimationShared model, and their ArrayList<Shape> and ArrayList<Animation> as fields. This allows the interaction between their ControllableView and their model. \
+\
+For their controller, we implemented their interface with class 
+\f1\b ProviderControllerAdapter
+\f0\b0 , which holds our controller as a field. Their controller only had a single method so we just implemented this method.\
+\
+We were able to get everything that they had set up running. Their code was limited and didn\'92t have all the required functions according to previous assignments. But we were able to adapt to their code and run what they had written. Their code didn\'92t draw the shapes, and they didn\'92t have the methods to allow users to add/delete shapes and keyframe. \
+\
+(see in the critique the areas where their code did not work)\
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs36 \cf0 \
+
+\f1\b \ul Assignment 9: Extra Credit
+\fs22 \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0 \cf0 Part 1:\ulnone \
+For part 1, we made changes inside the 
+\f1\b CompositeSwingView
+\f0\b0  class (which is our editor view class), we added a private JScrollBar field, and initialized it in the constructor. We also added: 
+\f1\b\fs24 \cf2 void 
+\f0\b0\fs22 \cf0 scrollerAction(AnimationController listener); method which takes in the controller. This called the moveAnimation(int value) method, which moves the animation according to what tick the scroller is on. This method is called in the doAction(AnimationController listener) method inside the CompositeSwingView class, which consists of the button panel, keyframe panel, and the save&load panel. In the refresh() method, we set the scroller maximum to the highest tick of the animation - in case new keyframes have been added. When the scroller is released, the animation will continue to play.\
+\
+\ul Part 2:\ulnone \
+For part 2, we added another field to 
+\f1\b AnimationaShape
+\f0\b0  -> 
+\f1\b \cf2 int 
+\f0\b0 \cf0 degree\
+Inside the 
+\f1\b AShape
+\f0\b0 , we now have 2 constructors, one with degree and one without. The one without automatically sets the degree to 0. We also added deltaDegree as a field to calculate changes in degrees.\
+We then added the method: 
+\f1\b \cf2 void 
+\f0\b0 \cf0 changeDegree(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 startingTime, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 newDegree, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 endingTime); which rotates the given shape to the given degree in the given duration.\
+We edited the 
+\f1\b AnimationReader
+\f0\b0  so that the readMotion() method would look for 18 vals, with the last 2 being the initial degree and the ending degree. The 
+\f1\b AnimationBuilder
+\f0\b0 \'92s addMotion() method now takes in d1 and d2 as the starting and ending degrees.\
+We then modified our shape visitor classes. For 
+\f1\b SwingShapeVisitor
+\f0\b0  and 
+\f1\b SVGShapeVisitor, 
+\f0\b0 we edited the methods so that it would rotate the shapes. Finally, we added the option to give the degree in the add/modify Keyframe inside our KeyFramePanel, which added the degree field to the addFrame() and modifyFrame() method inside the controller.\
+\
+\ul Part 3:\ulnone \
+For part 3, we added a new field inside our 
+\f1\b AnimationModel
+\f0\b0 : 
+\f1\b \cf2 private 
+\f0\b0 \cf0 TreeMap<Integer, List<String>> 
+\f1\b \cf4 layers
+\f0\b0 \cf0 ; which represents the map of the shapes in each layer. This map starts out empty. We made a 
+\f1\b \cf2 void 
+\f0\b0 \cf0 setLayer(String name, 
+\f1\b \cf2 int 
+\f0\b0 \cf0 layer); method which puts the name of the shape into the correct layer, and replaces any old layers that were set. Inside 
+\f1\b AnimationBuilder,
+\f0\b0  when a shape is declared, it will now take in a layer. If no layer is declared, the default layer will be 0. We then modified our getShape(
+\f1\b \cf2 int 
+\f0\b0 \cf0 time, String name) method so that it would return the shapes in order according to the layers. This way, when this method is called in the 
+\f1\b AnimationPanel
+\f0\b0 , it will draw the shapes according to their method. We then added the ability to give the shapes a layer in the 
+\f1\b KeyFramePanel
+\f0\b0 , by creating 2 new buttons -> Set layer and Delete layer. For the set layer, the user gives a name and layer, and we set the layer for that shape. for Delete layer, we added a method in 
+\f1\b AnimationModel
+\f0\b0  and 
+\f1\b AnimationController, 
+\f0\b0 which removes the names of shapes from that layer, so they will no longer be drawn in the Animation.
+\fs24 \
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b\fs28 \cf0 \ul \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0\fs22 \cf0 \ulnone \
+}
